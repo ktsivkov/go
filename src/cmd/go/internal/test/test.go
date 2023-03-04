@@ -533,6 +533,7 @@ var (
 	testC            bool                              // -c flag
 	testCoverPkgs    []*load.Package                   // -coverpkg flag
 	testCoverProfile string                            // -coverprofile flag
+	forceCover       bool                              // -forcecover flag
 	testFuzz         string                            // -fuzz flag
 	testJSON         bool                              // -json flag
 	testList         string                            // -list flag
@@ -1240,6 +1241,10 @@ func (r *runTestActor) Act(b *work.Builder, ctx context.Context, a *work.Action)
 	close(r.next)
 
 	if p := a.Package; len(p.TestGoFiles)+len(p.XTestGoFiles) == 0 {
+		if !forceCover {
+			// TODO IMPLEMENT FORCE COVER FUNCTIONALITY
+		}
+
 		fmt.Fprintf(stdout, "?   \t%s\t[no test files]\n", p.ImportPath)
 		return nil
 	}
@@ -1520,6 +1525,7 @@ func (c *runCache) tryCacheWithID(b *work.Builder, a *work.Action, id string) bo
 			"-test.run",
 			"-test.short",
 			"-test.timeout",
+			"-test.forcecover",
 			"-test.failfast",
 			"-test.v":
 			// These are cacheable.

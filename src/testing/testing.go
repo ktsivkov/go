@@ -422,6 +422,7 @@ func Init() {
 	// Report as tests are run; default is silent for success.
 	flag.Var(&chatty, "test.v", "verbose: print additional output")
 	count = flag.Uint("test.count", 1, "run tests and benchmarks `n` times")
+	forceCover = flag.Bool("test.forcecover", false, "force coverage on files even when no tests are found")
 	coverProfile = flag.String("test.coverprofile", "", "write a coverage profile to `file`")
 	gocoverdir = flag.String("test.gocoverdir", "", "write coverage intermediate files to this directory")
 	matchList = flag.String("test.list", "", "list tests, examples, and benchmarks matching `regexp` then exit")
@@ -450,6 +451,7 @@ func Init() {
 var (
 	// Flags, registered during Init.
 	short                *bool
+	forceCover           *bool
 	failFast             *bool
 	outputDir            *string
 	chatty               chattyFlag
@@ -2284,4 +2286,8 @@ func parseCpuList() {
 
 func shouldFailFast() bool {
 	return *failFast && numFailed.Load() > 0
+}
+
+func shouldForceCover() bool {
+	return *forceCover
 }

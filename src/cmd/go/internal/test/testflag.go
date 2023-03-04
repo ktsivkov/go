@@ -48,6 +48,7 @@ func init() {
 	cf.Int("count", 0, "")
 	cf.String("cpu", "", "")
 	cf.StringVar(&testCPUProfile, "cpuprofile", "", "")
+	cf.BoolVar(&forceCover, "forcecover", false, "")
 	cf.Bool("failfast", false, "")
 	cf.StringVar(&testFuzz, "fuzz", "", "")
 	cf.Bool("fullpath", false, "")

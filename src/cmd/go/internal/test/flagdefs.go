@@ -18,6 +18,7 @@ var passFlagToTest = map[string]bool{
 	"coverprofile":         true,
 	"cpu":                  true,
 	"cpuprofile":           true,
+	"forcecover":           true,
 	"failfast":             true,
 	"fullpath":             true,
 	"fuzz":                 true,
